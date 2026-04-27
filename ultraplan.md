@@ -1,5 +1,3 @@
-Nu da push la acest fisier pe git!!!
-
 Vreau sa creez o aplicatie pentru web, android si ios pentru a genera asigurari
 Primul tip de asigurari pe care ne vom concentra este RCA
 Celelante tipuri sunt: (pe care trebuie sa le avem in minte cand cream modelele pentru baza de date pentru a fi usor reutilizate)
@@ -22,7 +20,15 @@ Vreau sa existe un api accesibil din internet pentru a integra mai tarziu un bot
 Pregateste un plan extrem de detaliat pe care sa il folosesti in claude design pentru a genera interfata aplicatiei.
 Pune intrebari unde nu e clar ce technologii vreau sa folosesti pentru db, auth, backend, ui etc.
 
-
+Stack TypeScript end-to-end orpc: Next.js + Neon + Expo + Google Document AI. Mai am câteva întrebări critice.
+Pentru autentificare si management utilizatori (web + mobile + API) folosim Clerk
+ORM/query builder pe Neon Postgres folosim Drizzle ORM
+Integram asiguratorii pentru cotatii RCA folosind ca agregator Safety Broker mocked la inceput pana primim access la documentatia api.
+Plata politelor + abonamente NETOPIA Payments (RO)
+Organizam codul (web + mobile + shared) folosind Monorepo Turborepo + pnpm workspaces
+Stack UI + validare formulare (vrei "curat, modern, validat onblur") shadcn/ui + RHF + Zod
+Stocam documente uploadate (talon, CI, polite PDF) pe hetzner s3
+Platforma hosting Vercel + EAS + Neon
 
 #EXEMPLU EMAG
 
