@@ -21,14 +21,21 @@ Pregateste un plan extrem de detaliat pe care sa il folosesti in claude design p
 Pune intrebari unde nu e clar ce technologii vreau sa folosesti pentru db, auth, backend, ui etc.
 
 Stack TypeScript end-to-end orpc: Next.js + Neon + Expo + Google Document AI. Mai am câteva întrebări critice.
+Strategie aplicație mobilă (Expo)? Native screens
+Cum gestionăm fluxul OCR (talon + CI prin Google Document AI)? Sincron în request handler
 Pentru autentificare si management utilizatori (web + mobile + API) folosim Clerk
 ORM/query builder pe Neon Postgres folosim Drizzle ORM
 Integram asiguratorii pentru cotatii RCA folosind ca agregator Safety Broker mocked la inceput pana primim access la documentatia api.
+Sursă date externe RCA (BAAR risc ridicat, CEDAM bonus-malus, decodor VIN)? Mocked + integrări separate ulterior
 Plata politelor + abonamente NETOPIA Payments (RO)
+Plată NETOPIA: cum tratam confirmarea și emisia poliței? Webhook NETOPIA → emitere automată
 Organizam codul (web + mobile + shared) folosind Monorepo Turborepo + pnpm workspaces
 Stack UI + validare formulare (vrei "curat, modern, validat onblur") shadcn/ui + RHF + Zod
 Stocam documente uploadate (talon, CI, polite PDF) pe hetzner s3
 Platforma hosting Vercel + EAS + Neon
+Cine emite polițele în aplicație? Răspunsul determină modelul de date (multi-tenant, agent dashboard, comisioane). B2C direct
+Limbi suportate la lansare? RO + EN de la început
+Cum lansăm API-ul public pentru bot WhatsApp și alte integrări externe? oRPC cu OpenAPI plugin
 
 #EXEMPLU EMAG
 
