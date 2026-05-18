@@ -1,0 +1,273 @@
+/* ============================================================
+ * blaj.io Design Tokens v1.0
+ * Based on insurance-app/design.md sections 4-9
+ * Light + Dark mode via prefers-color-scheme
+ * ============================================================ */
+
+/* === FONTS === */
+/* Geist Sans — self-hosted, woff2 */
+/* Inter — Google Fonts, display=swap */
+/* Geist Mono — self-hosted, woff2 */
+
+/* === LIGHT MODE === */
+:root {
+  /* -- Brand -- */
+  --color-brand-primary: #0a0a0f;
+  --color-brand-accent: #ff6b1a;
+  --color-brand-accent-hover: #e85a0f;
+  --color-brand-accent-soft: #fff1e8;
+
+  --color-electric: #2563eb;
+  --color-electric-hover: #1d4ed8;
+  --color-electric-soft: #eff6ff;
+
+  /* -- Neutrals (warm-shifted) -- */
+  --color-neutral-50: #fafafc;
+  --color-neutral-100: #f4f4f7;
+  --color-neutral-200: #e8e8ed;
+  --color-neutral-300: #d4d4dc;
+  --color-neutral-400: #9d9da8;
+  --color-neutral-500: #6b6b78;
+  --color-neutral-600: #4a4a55;
+  --color-neutral-700: #2e2e37;
+  --color-neutral-800: #1a1a22;
+  --color-neutral-900: #0a0a0f;
+
+  /* -- Semantic -- */
+  --color-success: #16a34a;
+  --color-success-soft: #dcfce7;
+  --color-warning: #ea580c;
+  --color-warning-soft: #ffedd5;
+  --color-danger: #dc2626;
+  --color-danger-soft: #fee2e2;
+  --color-info: #0284c7;
+  --color-info-soft: #e0f2fe;
+
+  /* -- Surfaces -- */
+  --color-bg: var(--color-neutral-50);
+  --color-surface: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-surface-overlay: rgba(10, 10, 15, 0.6);
+
+  /* -- Text -- */
+  --color-text-primary: var(--color-neutral-900);
+  --color-text-secondary: var(--color-neutral-500);
+  --color-text-tertiary: var(--color-neutral-400);
+  --color-text-on-brand: #ffffff;
+  --color-text-on-accent: #ffffff;
+
+  /* -- Borders -- */
+  --color-border-subtle: var(--color-neutral-200);
+  --color-border-default: var(--color-neutral-300);
+  --color-border-strong: var(--color-neutral-400);
+  --color-border-focus: var(--color-electric);
+
+  /* -- States -- */
+  --color-hover-overlay: rgba(10, 10, 15, 0.04);
+  --color-active-overlay: rgba(10, 10, 15, 0.08);
+  --color-disabled-bg: var(--color-neutral-100);
+  --color-disabled-text: var(--color-neutral-400);
+
+  /* -- Spacing (4px grid) -- */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* -- Border Radius -- */
+  --radius-none: 0;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* -- Shadows (subtle, Stripe-style) -- */
+  --shadow-xs: 0 1px 2px 0 rgba(10, 10, 15, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(10, 10, 15, 0.06), 0 1px 2px 0 rgba(10, 10, 15, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(10, 10, 15, 0.06), 0 2px 4px -2px rgba(10, 10, 15, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(10, 10, 15, 0.08), 0 4px 6px -4px rgba(10, 10, 15, 0.04);
+  --shadow-xl: 0 20px 25px -5px rgba(10, 10, 15, 0.08), 0 8px 10px -6px rgba(10, 10, 15, 0.04);
+  --shadow-2xl: 0 25px 50px -12px rgba(10, 10, 15, 0.16);
+  --shadow-focus: 0 0 0 4px rgba(37, 99, 235, 0.12);
+  --shadow-glow-accent: 0 0 0 1px rgba(255, 107, 26, 0.3),
+    0 8px 32px -4px rgba(255, 107, 26, 0.4);
+
+  /* -- Motion Durations -- */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-medium: 300ms;
+  --duration-slow: 500ms;
+  --duration-slower: 700ms;
+
+  /* -- Easing Curves -- */
+  --ease-linear: cubic-bezier(0, 0, 1, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-spring-soft: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* -- Container Widths -- */
+  --container-narrow: 640px;
+  --container-default: 1080px;
+  --container-wide: 1280px;
+
+  /* -- Layout -- */
+  --header-height: 72px;
+  --header-height-mobile: 64px;
+  --sidebar-width: 260px;
+
+  /* -- shadcn/ui CSS Variable Mappings -- */
+  --background: var(--color-bg);
+  --foreground: var(--color-text-primary);
+  --card: var(--color-surface);
+  --card-foreground: var(--color-text-primary);
+  --popover: var(--color-surface-raised);
+  --popover-foreground: var(--color-text-primary);
+  --primary: var(--color-brand-primary);
+  --primary-foreground: var(--color-text-on-brand);
+  --secondary: var(--color-neutral-100);
+  --secondary-foreground: var(--color-neutral-900);
+  --muted: var(--color-neutral-100);
+  --muted-foreground: var(--color-neutral-500);
+  --accent: var(--color-brand-accent-soft);
+  --accent-foreground: var(--color-brand-accent);
+  --destructive: var(--color-danger);
+  --destructive-foreground: #ffffff;
+  --border: var(--color-border-default);
+  --input: var(--color-border-default);
+  --ring: var(--color-electric);
+  --radius: 0.625rem;
+
+  /* -- shadcn Chart Colors -- */
+  --chart-1: var(--color-electric);
+  --chart-2: var(--color-brand-accent);
+  --chart-3: var(--color-success);
+  --chart-4: var(--color-warning);
+  --chart-5: var(--color-info);
+}
+
+/* === DARK MODE === */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* -- Brand (adjusted for dark) -- */
+    --color-brand-primary: #fafafc;
+    --color-brand-accent: #ff7a2d;
+    --color-brand-accent-hover: #ff8c45;
+    --color-brand-accent-soft: #2a1b0f;
+
+    --color-electric: #3b82f6;
+    --color-electric-hover: #60a5fa;
+    --color-electric-soft: #0f1929;
+
+    /* -- Neutrals (inverted) -- */
+    --color-neutral-50: #0a0a0f;
+    --color-neutral-100: #11111a;
+    --color-neutral-200: #1a1a22;
+    --color-neutral-300: #2e2e37;
+    --color-neutral-400: #4a4a55;
+    --color-neutral-500: #6b6b78;
+    --color-neutral-600: #9d9da8;
+    --color-neutral-700: #d4d4dc;
+    --color-neutral-800: #e8e8ed;
+    --color-neutral-900: #fafafc;
+
+    /* -- Semantic (adjusted for dark) -- */
+    --color-success: #22c55e;
+    --color-success-soft: #052e16;
+    --color-warning: #fb923c;
+    --color-warning-soft: #2a1b0f;
+    --color-danger: #ef4444;
+    --color-danger-soft: #2a0a0a;
+    --color-info: #38bdf8;
+    --color-info-soft: #0c1f2e;
+
+    /* -- Surfaces -- */
+    --color-bg: #0a0a0f;
+    --color-surface: #11111a;
+    --color-surface-raised: #1a1a22;
+    --color-surface-overlay: rgba(0, 0, 0, 0.7);
+
+    /* -- Text -- */
+    --color-text-primary: #fafafc;
+    --color-text-secondary: #9d9da8;
+    --color-text-tertiary: #6b6b78;
+    --color-text-on-brand: #0a0a0f;
+    --color-text-on-accent: #ffffff;
+
+    /* -- Borders -- */
+    --color-border-subtle: #1a1a22;
+    --color-border-default: #2e2e37;
+    --color-border-strong: #4a4a55;
+    --color-border-focus: #3b82f6;
+
+    /* -- States -- */
+    --color-hover-overlay: rgba(255, 255, 255, 0.05);
+    --color-active-overlay: rgba(255, 255, 255, 0.1);
+    --color-disabled-bg: #1a1a22;
+    --color-disabled-text: #4a4a55;
+
+    /* -- shadcn/ui Dark Mode CSS Variable Mappings -- */
+    --background: var(--color-bg);
+    --foreground: var(--color-text-primary);
+    --card: var(--color-surface);
+    --card-foreground: var(--color-text-primary);
+    --popover: var(--color-surface-raised);
+    --popover-foreground: var(--color-text-primary);
+    --primary: var(--color-brand-primary);
+    --primary-foreground: var(--color-text-on-brand);
+    --secondary: var(--color-neutral-800);
+    --secondary-foreground: var(--color-neutral-100);
+    --muted: var(--color-neutral-800);
+    --muted-foreground: var(--color-neutral-400);
+    --accent: var(--color-brand-accent-soft);
+    --accent-foreground: var(--color-brand-accent);
+    --destructive: var(--color-danger);
+    --destructive-foreground: #0a0a0f;
+    --border: var(--color-border-default);
+    --input: var(--color-border-default);
+    --ring: var(--color-electric);
+    --radius: 0.625rem;
+    --chart-1: var(--color-electric);
+    --chart-2: var(--color-brand-accent);
+    --chart-3: var(--color-success);
+    --chart-4: var(--color-warning);
+    --chart-5: var(--color-info);
+
+    /* -- Shadows (more prominent in dark) -- */
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+    --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+    --shadow-focus: 0 0 0 4px rgba(59, 130, 246, 0.3);
+    --shadow-glow-accent: 0 0 0 1px rgba(255, 122, 45, 0.4),
+      0 8px 32px -4px rgba(255, 122, 45, 0.5);
+  }
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,203 @@
+/* ============================================================
+ * blaj.io Global Styles
+ * shadcn/ui base overrides with brand tokens
+ * ============================================================ */
+
+@import "./tokens.css";
+
+/* Tailwind v4 layers will be provided by tailwind itself.
+ * For v3 config, this file is imported alongside tailwind directives. */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg);
+  }
+
+  /* Ensure 16px minimum on inputs to prevent iOS zoom */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Focus ring — Apple-style subtle blue */
+  *:focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-focus);
+    border-radius: var(--radius-sm);
+  }
+
+  /* Selection */
+  ::selection {
+    background-color: rgba(255, 107, 26, 0.15);
+    color: var(--color-text-primary);
+  }
+}
+
+@layer components {
+  /* Container presets */
+  .container-narrow {
+    max-width: 640px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 32px);
+  }
+
+  .container-default {
+    max-width: 1080px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 32px);
+  }
+
+  .container-wide {
+    max-width: 1280px;
+    margin-inline: auto;
+    padding-inline: clamp(16px, 4vw, 32px);
+  }
+
+  /* Section spacing */
+  .section-padding {
+    padding-block: clamp(64px, 10vh, 128px);
+  }
+
+  /* Card base */
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+    transition:
+      box-shadow var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-out),
+      border-color var(--duration-base) var(--ease-out);
+  }
+
+  .card-interactive:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+    border-color: var(--color-border-default);
+  }
+
+  /* Hero drop zone */
+  .drop-zone {
+    border: 2px dashed var(--color-border-default);
+    border-radius: var(--radius-2xl);
+    background: var(--color-surface);
+    padding: var(--space-12);
+    cursor: pointer;
+    transition:
+      border-color var(--duration-base) var(--ease-out),
+      box-shadow var(--duration-base) var(--ease-out),
+      background-color var(--duration-base) var(--ease-out);
+  }
+
+  .drop-zone-active {
+    border-color: var(--color-brand-accent);
+    box-shadow: var(--shadow-glow-accent);
+    background: var(--color-brand-accent-soft);
+  }
+
+  /* Skeleton shimmer */
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--color-neutral-100) 0%,
+      var(--color-neutral-200) 50%,
+      var(--color-neutral-100) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out infinite;
+  }
+
+  /* Toast styles (sonner overrides) */
+  .toast-base {
+    background: var(--color-surface-raised);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* Stepper bar */
+  .stepper-bar {
+    height: 2px;
+    background: var(--color-neutral-200);
+    border-radius: 9999px;
+  }
+
+  .stepper-bar-filled {
+    height: 2px;
+    background: var(--color-brand-primary);
+    border-radius: 9999px;
+    transition: width var(--duration-slow) var(--ease-spring-soft);
+  }
+
+  /* Stepper circles */
+  .stepper-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid var(--color-neutral-300);
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-neutral-500);
+    transition:
+      border-color var(--duration-base) var(--ease-out),
+      background-color var(--duration-base) var(--ease-out),
+      color var(--duration-base) var(--ease-out),
+      transform var(--duration-base) var(--ease-spring-soft);
+  }
+
+  .stepper-circle-active {
+    border-color: var(--color-brand-primary);
+    color: var(--color-brand-primary);
+    transform: scale(1.1);
+    box-shadow: 0 0 0 3px rgba(10, 10, 15, 0.06);
+  }
+
+  .stepper-circle-completed {
+    background: var(--color-brand-primary);
+    border-color: var(--color-brand-primary);
+    color: #fff;
+  }
+
+  /* Input auto-detected state */
+  .input-auto-detected {
+    border-color: var(--color-success) !important;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.08);
+  }
+}
+
+@layer utilities {
+  /* Text balance for headings */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
