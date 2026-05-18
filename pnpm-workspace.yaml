@@ -1,0 +1,18 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+allowBuilds:
+  '@clerk/shared': true
+  '@scarf/scarf': set this to true or false
+  '@tree-sitter-grammars/tree-sitter-yaml': set this to true or false
+  browser-tabs-lock: true
+  bufferutil: true
+  core-js: true
+  core-js-pure: set this to true or false
+  esbuild: true
+  protobufjs: true
+  sharp: set this to true or false
+  tree-sitter: set this to true or false
+  tree-sitter-json: set this to true or false
+  utf-8-validate: true
+  vue-demi: true
