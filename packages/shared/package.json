@@ -1,0 +1,27 @@
+{
+  "name": "@blaj/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schemas": "./src/schemas/index.ts",
+    "./validators": "./src/validators/index.ts",
+    "./i18n": "./src/i18n/index.ts",
+    "./i18n/ro": "./src/i18n/translations/ro.ts",
+    "./i18n/en": "./src/i18n/translations/en.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "echo 'lint ok'",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "zod": "^3.24.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}
