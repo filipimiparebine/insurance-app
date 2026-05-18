@@ -1,0 +1,2628 @@
+{
+  "info": {
+    "title": "blaj.io API",
+    "version": "1.0.0",
+    "description": "Public API for blaj.io insurance platform. Create quotes, compare offers, and issue RCA policies programmatically.",
+    "contact": {
+      "name": "blaj.io API Support",
+      "email": "api@blaj.io"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.blaj.io",
+      "description": "Production"
+    }
+  ],
+  "tags": [
+    {
+      "name": "quotes",
+      "description": "Quote search and retrieval"
+    },
+    {
+      "name": "policies",
+      "description": "Policy management"
+    },
+    {
+      "name": "payments",
+      "description": "Payment processing"
+    },
+    {
+      "name": "account",
+      "description": "User account management"
+    },
+    {
+      "name": "admin",
+      "description": "Admin-only operations"
+    }
+  ],
+  "security": [
+    {
+      "apiKey": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key",
+        "description": "API key for authenticating requests. Obtain from the admin dashboard."
+      }
+    }
+  },
+  "openapi": "3.1.1",
+  "paths": {
+    "/public/quotes/create": {
+      "post": {
+        "operationId": "public.quotes.create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "vehicle": {
+                    "type": "object",
+                    "properties": {
+                      "stare": {
+                        "enum": [
+                          "inmatriculat",
+                          "in_vederea_inmatricularii",
+                          "inregistrat_primarie"
+                        ],
+                        "type": "string"
+                      },
+                      "numar_inmatriculare": {
+                        "type": "string"
+                      },
+                      "serie_sasiu": {
+                        "type": "string",
+                        "minLength": 17,
+                        "maxLength": 17,
+                        "pattern": "^[A-HJ-NPR-Z0-9]{17}$"
+                      },
+                      "marca": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "model": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "categorie": {
+                        "enum": [
+                          "autoturism",
+                          "autoutilitara",
+                          "motocicleta",
+                          "camion",
+                          "autobuz",
+                          "remorca",
+                          "semiremorca",
+                          "tractor",
+                          "masina_agricola"
+                        ],
+                        "type": "string"
+                      },
+                      "subcategorie": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "mod_utilizare": {
+                        "enum": [
+                          "privat",
+                          "taxi",
+                          "rent_a_car",
+                          "scoala_soferi",
+                          "firma_distributie",
+                          "firma_securitate",
+                          "curierat",
+                          "transport_national_persoane",
+                          "transport_marfa",
+                          "transport_international_marfa",
+                          "transport_international_persoane"
+                        ],
+                        "type": "string"
+                      },
+                      "tip_combustibil": {
+                        "enum": [
+                          "benzina",
+                          "motorina",
+                          "gpl",
+                          "hibrid",
+                          "electric",
+                          "hidrogen"
+                        ],
+                        "type": "string"
+                      },
+                      "an_fabricatie": {
+                        "type": "integer",
+                        "minimum": 1900,
+                        "maximum": 2027
+                      },
+                      "masa_maxima": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "capacitate_cilindrica": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "putere": {
+                        "type": "number",
+                        "minimum": 1
+                      },
+                      "numar_locuri": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "serie_civ": {
+                        "type": "string"
+                      },
+                      "data_primei_inmatriculari": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                      },
+                      "kilometraj": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "data_expirare_itp": {
+                        "type": "string",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                      }
+                    },
+                    "required": [
+                      "stare",
+                      "serie_sasiu",
+                      "marca",
+                      "model",
+                      "categorie",
+                      "subcategorie",
+                      "mod_utilizare",
+                      "tip_combustibil",
+                      "an_fabricatie",
+                      "masa_maxima",
+                      "capacitate_cilindrica",
+                      "putere",
+                      "numar_locuri",
+                      "data_primei_inmatriculari"
+                    ]
+                  },
+                  "owner": {
+                    "anyOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "tip_persoana": {
+                            "const": "pf"
+                          },
+                          "nume": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "prenume": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "cnp": {
+                            "type": "string"
+                          },
+                          "serie_ci": {
+                            "type": "string",
+                            "pattern": "^[A-Z]{2}$"
+                          },
+                          "numar_ci": {
+                            "type": "string",
+                            "pattern": "^\\d{6}$"
+                          },
+                          "email": {
+                            "type": "string",
+                            "format": "email"
+                          },
+                          "telefon": {
+                            "type": "string",
+                            "pattern": "^(\\+40|0)\\d{9}$"
+                          },
+                          "adresa": {
+                            "type": "object",
+                            "properties": {
+                              "judet": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "localitate": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "strada": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "numar": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "bloc": {
+                                "type": "string"
+                              },
+                              "scara": {
+                                "type": "string"
+                              },
+                              "etaj": {
+                                "type": "string"
+                              },
+                              "apartament": {
+                                "type": "string"
+                              },
+                              "cod_postal": {
+                                "type": "string",
+                                "pattern": "^\\d{6}$"
+                              }
+                            },
+                            "required": [
+                              "judet",
+                              "localitate",
+                              "strada",
+                              "numar",
+                              "cod_postal"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "tip_persoana",
+                          "nume",
+                          "prenume",
+                          "cnp",
+                          "serie_ci",
+                          "numar_ci",
+                          "email",
+                          "telefon",
+                          "adresa"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "tip_persoana": {
+                            "const": "pj"
+                          },
+                          "cui": {
+                            "type": "string"
+                          },
+                          "nume_companie": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "cod_caen": {
+                            "type": "string",
+                            "pattern": "^\\d{4}$"
+                          },
+                          "numar_inregistrare": {
+                            "type": "string",
+                            "pattern": "^J\\d{2,4}\\/\\d{1,4}\\/\\d{4}$"
+                          },
+                          "tip_societate": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "email_companie": {
+                            "type": "string",
+                            "format": "email"
+                          },
+                          "telefon": {
+                            "type": "string",
+                            "pattern": "^(\\+40|0)\\d{9}$"
+                          },
+                          "reprezentant_nume": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "reprezentant_prenume": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "reprezentant_calitate": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "adresa_sediu": {
+                            "type": "object",
+                            "properties": {
+                              "judet": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "localitate": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "strada": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "numar": {
+                                "type": "string",
+                                "minLength": 1
+                              },
+                              "bloc": {
+                                "type": "string"
+                              },
+                              "scara": {
+                                "type": "string"
+                              },
+                              "etaj": {
+                                "type": "string"
+                              },
+                              "apartament": {
+                                "type": "string"
+                              },
+                              "cod_postal": {
+                                "type": "string",
+                                "pattern": "^\\d{6}$"
+                              }
+                            },
+                            "required": [
+                              "judet",
+                              "localitate",
+                              "strada",
+                              "numar",
+                              "cod_postal"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "tip_persoana",
+                          "cui",
+                          "nume_companie",
+                          "cod_caen",
+                          "numar_inregistrare",
+                          "tip_societate",
+                          "email_companie",
+                          "telefon",
+                          "reprezentant_nume",
+                          "reprezentant_prenume",
+                          "reprezentant_calitate",
+                          "adresa_sediu"
+                        ]
+                      }
+                    ]
+                  },
+                  "driversPersonIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    }
+                  },
+                  "startDate": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  },
+                  "durationMonthsPrimary": {
+                    "default": 12,
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 12
+                  },
+                  "durationMonthsSecondary": {
+                    "type": "number",
+                    "minimum": 1,
+                    "maximum": 11
+                  },
+                  "directSettlementRequested": {
+                    "default": false,
+                    "type": "boolean"
+                  },
+                  "acknowledgments": {
+                    "type": "object",
+                    "properties": {
+                      "gdprAt": {
+                        "type": "string"
+                      },
+                      "precontractualAt": {
+                        "type": "string"
+                      },
+                      "noConsultancyAt": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "gdprAt",
+                      "precontractualAt",
+                      "noConsultancyAt"
+                    ]
+                  }
+                },
+                "required": [
+                  "userId",
+                  "vehicle",
+                  "owner",
+                  "startDate",
+                  "durationMonthsSecondary",
+                  "acknowledgments"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "searchId": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "expiresAt": {
+                      "type": "string"
+                    },
+                    "offers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    }
+                  },
+                  "required": [
+                    "searchId",
+                    "expiresAt",
+                    "offers"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/policies/get": {
+      "get": {
+        "operationId": "public.policies.get",
+        "parameters": [
+          {
+            "name": "policyId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/policies/list": {
+      "get": {
+        "operationId": "public.policies.list",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "enum": [
+                "active",
+                "cancelled",
+                "expired",
+                "pending",
+                "pending_cancellation"
+              ],
+              "type": "string"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "type": "number",
+              "minimum": 1,
+              "maximum": 100
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "default": 0,
+              "type": "number",
+              "minimum": 0
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": {}
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/policies/cancel": {
+      "post": {
+        "operationId": "public.policies.cancel",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "policyId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "policyId",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "refunded": {
+                      "type": "boolean"
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "currency": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "refunded"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/payments/createIntent": {
+      "post": {
+        "operationId": "public.payments.createIntent",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "quoteOfferId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "currency": {
+                    "default": "RON",
+                    "type": "string"
+                  },
+                  "customerId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "userId",
+                  "quoteOfferId",
+                  "amount"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "clientSecret": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    },
+                    "paymentIntentId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "clientSecret",
+                    "paymentIntentId"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/payments/get": {
+      "get": {
+        "operationId": "public.payments.get",
+        "parameters": [
+          {
+            "name": "paymentId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/payments/cancelWithRefund": {
+      "post": {
+        "operationId": "public.payments.cancelWithRefund",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "policyId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "policyId",
+                  "reason"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "refunded": {
+                      "type": "boolean"
+                    },
+                    "amount": {
+                      "type": "number"
+                    },
+                    "currency": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "refunded"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/account/getProfile": {
+      "get": {
+        "operationId": "public.account.getProfile",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "allowEmptyValue": true,
+            "allowReserved": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "additionalProperties": {}
+                    },
+                    "persons": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "vehicles": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "policies": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    }
+                  },
+                  "required": [
+                    "user",
+                    "persons",
+                    "vehicles",
+                    "policies"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/account/updatePreferences": {
+      "put": {
+        "operationId": "public.account.updatePreferences",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "preferences": {
+                    "type": "object",
+                    "properties": {
+                      "emailReminders": {
+                        "type": "boolean"
+                      },
+                      "smsReminders": {
+                        "type": "boolean"
+                      },
+                      "pushReminders": {
+                        "type": "boolean"
+                      },
+                      "cookiesAnalytics": {
+                        "type": "boolean"
+                      },
+                      "cookiesMarketing": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "userId",
+                  "preferences"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/account/delete": {
+      "delete": {
+        "operationId": "public.account.delete",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500
+                  }
+                },
+                "required": [
+                  "userId"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/pushTokens/register": {
+      "post": {
+        "operationId": "public.pushTokens.register",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "token": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "platform": {
+                    "enum": [
+                      "ios",
+                      "android"
+                    ],
+                    "type": "string"
+                  },
+                  "deviceId": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "userId",
+                  "token",
+                  "platform"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/public/pushTokens/unregister": {
+      "post": {
+        "operationId": "public.pushTokens.unregister",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "userId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "token": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                },
+                "required": [
+                  "userId",
+                  "token"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "success"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/policies/list": {
+      "post": {
+        "operationId": "admin.policies.list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "perPage": {
+                    "default": 25,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  },
+                  "status": {
+                    "enum": [
+                      "active",
+                      "cancelled",
+                      "expired",
+                      "pending",
+                      "pending_cancellation"
+                    ],
+                    "type": "string"
+                  },
+                  "policyType": {
+                    "type": "string"
+                  },
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/policies/getOne": {
+      "post": {
+        "operationId": "admin.policies.getOne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/policies/update": {
+      "post": {
+        "operationId": "admin.policies.update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "status": {
+                    "enum": [
+                      "active",
+                      "cancelled",
+                      "expired",
+                      "pending",
+                      "pending_cancellation"
+                    ],
+                    "type": "string"
+                  },
+                  "cancelledAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "cancellationReason": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/policies/delete": {
+      "post": {
+        "operationId": "admin.policies.delete",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/list": {
+      "post": {
+        "operationId": "admin.users.list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "perPage": {
+                    "default": 25,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  },
+                  "search": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/getOne": {
+      "post": {
+        "operationId": "admin.users.getOne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/payments/list": {
+      "post": {
+        "operationId": "admin.payments.list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "perPage": {
+                    "default": 25,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/payments/getOne": {
+      "post": {
+        "operationId": "admin.payments.getOne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/insurers/list": {
+      "post": {
+        "operationId": "admin.insurers.list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "perPage": {
+                    "default": 25,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/insurers/getOne": {
+      "post": {
+        "operationId": "admin.insurers.getOne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/insurers/create": {
+      "post": {
+        "operationId": "admin.insurers.create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "brokerCommissionPct": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code",
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/insurers/update": {
+      "post": {
+        "operationId": "admin.insurers.update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "active": {
+                    "type": "boolean"
+                  },
+                  "brokerCommissionPct": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/insurers/delete": {
+      "post": {
+        "operationId": "admin.insurers.delete",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "code"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/leasing/list": {
+      "post": {
+        "operationId": "admin.leasing.list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "perPage": {
+                    "default": 25,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/leasing/getOne": {
+      "post": {
+        "operationId": "admin.leasing.getOne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/leasing/create": {
+      "post": {
+        "operationId": "admin.leasing.create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "cui": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/leasing/update": {
+      "post": {
+        "operationId": "admin.leasing.update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "cui": {
+                    "type": "string"
+                  },
+                  "active": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/leasing/delete": {
+      "post": {
+        "operationId": "admin.leasing.delete",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/audit/list": {
+      "post": {
+        "operationId": "admin.audit.list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "perPage": {
+                    "default": 25,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  },
+                  "action": {
+                    "type": "string"
+                  },
+                  "userId": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/audit/getOne": {
+      "post": {
+        "operationId": "admin.audit.getOne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/legalDocuments/list": {
+      "post": {
+        "operationId": "admin.legalDocuments.list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "perPage": {
+                    "default": 25,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/legalDocuments/getOne": {
+      "post": {
+        "operationId": "admin.legalDocuments.getOne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/legalDocuments/create": {
+      "post": {
+        "operationId": "admin.legalDocuments.create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "contentUrl": {
+                    "type": "string"
+                  },
+                  "effectiveDate": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  }
+                },
+                "required": [
+                  "type",
+                  "version",
+                  "contentUrl",
+                  "effectiveDate"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/legalDocuments/update": {
+      "post": {
+        "operationId": "admin.legalDocuments.update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "version": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "contentUrl": {
+                    "type": "string"
+                  },
+                  "effectiveDate": {
+                    "type": "string",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/legalDocuments/delete": {
+      "post": {
+        "operationId": "admin.legalDocuments.delete",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/stats/dashboard": {
+      "post": {
+        "operationId": "admin.stats.dashboard",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "totalPolicies": {
+                      "type": "number"
+                    },
+                    "activePolicies": {
+                      "type": "number"
+                    },
+                    "totalUsers": {
+                      "type": "number"
+                    },
+                    "totalRevenueRON": {
+                      "type": "number"
+                    },
+                    "pendingCancellations": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "totalPolicies",
+                    "activePolicies",
+                    "totalUsers",
+                    "totalRevenueRON",
+                    "pendingCancellations"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/apiClients/list": {
+      "post": {
+        "operationId": "admin.apiClients.list",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "page": {
+                    "default": 1,
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "perPage": {
+                    "default": 25,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 100
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": {}
+                      }
+                    },
+                    "total": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "total"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/apiClients/getOne": {
+      "post": {
+        "operationId": "admin.apiClients.getOne",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/apiClients/create": {
+      "post": {
+        "operationId": "admin.apiClients.create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "rateLimitPerMin": {
+                    "default": 60,
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "rawKey": {
+                      "type": "string"
+                    },
+                    "prefix": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "rateLimitPerMin": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "rawKey",
+                    "prefix",
+                    "name",
+                    "rateLimitPerMin"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/apiClients/update": {
+      "post": {
+        "operationId": "admin.apiClients.update",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100
+                  },
+                  "rateLimitPerMin": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10000
+                  },
+                  "active": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/apiClients/revoke": {
+      "post": {
+        "operationId": "admin.apiClients.revoke",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "revokedAt": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "null"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "revokedAt"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/apiClients/rotate": {
+      "post": {
+        "operationId": "admin.apiClients.rotate",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "rawKey": {
+                      "type": "string"
+                    },
+                    "prefix": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "previousId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "rawKey",
+                    "prefix",
+                    "name",
+                    "previousId"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
