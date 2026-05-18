@@ -1,0 +1,92 @@
+export const leasingCompanies = [
+  { name: "BCR Leasing", cui: "RO1333318" },
+  { name: "BT Leasing", cui: "RO8025835" },
+  { name: "UniCredit Leasing", cui: "RO5352697" },
+  { name: "Raiffeisen Leasing", cui: "RO11994455" },
+  { name: "ING Lease", cui: "RO11339974" },
+  { name: "ALD Automotive", cui: "RO1117581" },
+  { name: "Arval Service Lease", cui: "RO10191644" },
+  { name: "LeasePlan Romania", cui: "RO7111561" },
+  { name: "Porsche Leasing", cui: "RO2513346" },
+  { name: "Porsche Bank", cui: "RO16063971" },
+  { name: "Mercedes-Benz Financial", cui: "RO17864087" },
+  { name: "BMW Group Financial Services", cui: "RO15641952" },
+  { name: "Volkswagen Financial Services", cui: "RO17113411" },
+  { name: "Toyota Financial Services", cui: "RO27209270" },
+  { name: "Renault Commercial Roumanie", cui: "RO1450980" },
+  { name: "RCI Finantare Romania", cui: "RO5770885" },
+  { name: "BRD Sogelease", cui: "RO4968692" },
+  { name: "Libra Internet Bank", cui: "RO2962097" },
+  { name: "OTP Leasing", cui: "RO12693520" },
+  { name: "Patria Bank", cui: "RO1325009" },
+  { name: "ProCredit Bank", cui: "RO18714067" },
+  { name: "Garanti BBVA Leasing", cui: "RO1562285" },
+  { name: "Idea Leasing", cui: "RO16146220" },
+  { name: "Motoractive Leasing", cui: "RO9534177" },
+  { name: "Vest Leasing", cui: "RO14229406" },
+];
+
+export const appConfig = [
+  { key: "maintenance_mode", value: "false", type: "boolean", description: "Enable maintenance mode (blocks all user-facing requests)" },
+  { key: "max_broker_commission_pct", value: "10.00", type: "decimal", description: "Maximum broker commission percentage allowed" },
+  { key: "feature_flag_ab_test", value: "control", type: "string", description: "A/B test group assignment (control/treatment)" },
+  { key: "feature_flag_new_checkout", value: "false", type: "boolean", description: "Enable new checkout flow" },
+  { key: "feature_flag_direct_settlement", value: "true", type: "boolean", description: "Enable direct settlement option" },
+];
+
+export const insurers = [
+  {
+    code: "eazy",
+    name: "Eazy Asigurari",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.eazyasigurari.ro",
+  },
+  {
+    code: "asirom",
+    name: "Asirom Vienna Insurance Group",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.asirom.ro",
+  },
+  {
+    code: "generali",
+    name: "Generali Romania",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.generali.ro",
+  },
+  {
+    code: "groupama",
+    name: "Groupama Asigurari",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.groupama.ro",
+  },
+  {
+    code: "omniasig",
+    name: "Omniasig Vienna Insurance Group",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.omniasig.ro",
+  },
+  {
+    code: "allianz",
+    name: "Allianz-Tiriac Asigurari",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.allianztiriac.ro",
+  },
+  {
+    code: "grawe",
+    name: "Grawe Romania",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.grawe.ro",
+  },
+  {
+    code: "uniqa",
+    name: "Uniqa Asigurari",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.uniqa.ro",
+  },
+  {
+    code: "city",
+    name: "City Insurance",
+    brokerCommissionPct: "5.00",
+    apiEndpoint: "https://api.cityinsurance.ro",
+  },
+];
