@@ -1,0 +1,47 @@
+{
+  "name": "@blaj/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next .turbo"
+  },
+  "dependencies": {
+    "@blaj/api": "workspace:*",
+    "@blaj/db": "workspace:*",
+    "@blaj/shared": "workspace:*",
+    "@blaj/ui": "workspace:*",
+    "@clerk/nextjs": "^6.0.0",
+    "@stripe/react-stripe-js": "^6.3.0",
+    "@stripe/stripe-js": "^9.5.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "drizzle-orm": "^0.39.3",
+    "framer-motion": "^12.0.0",
+    "lucide-react": "^0.400.0",
+    "next": "^15.0.0",
+    "next-intl": "^3.26.0",
+    "posthog-js": "^1.210.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwind-merge": "^2.5.0"
+  },
+  "devDependencies": {
+    "@blaj/eslint-config": "workspace:*",
+    "@blaj/tailwind-config": "workspace:*",
+    "@blaj/tsconfig": "workspace:*",
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.0",
+    "eslint": "^9.0.0",
+    "postcss": "^8.4.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.7.0"
+  }
+}
