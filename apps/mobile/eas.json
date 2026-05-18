@@ -1,0 +1,70 @@
+{
+  "$schema": "https://expo.dev/eas.schema.json",
+  "cli": {
+    "version": ">=14.0.0",
+    "appVersionSource": "remote"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "development",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "development",
+        "EXPO_PUBLIC_API_URL": "http://localhost:3000",
+        "EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_test_xxxxxxxxxxxxx"
+      },
+      "android": {
+        "buildType": "apk",
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "channel": "preview",
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "preview",
+        "EXPO_PUBLIC_API_URL": "https://blaj.io",
+        "EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_live_xxxxxxxxxxxxx"
+      },
+      "android": {
+        "buildType": "apk"
+      },
+      "ios": {
+        "enterpriseProvisioning": "adhoc"
+      }
+    },
+    "production": {
+      "distribution": "store",
+      "channel": "production",
+      "autoIncrement": true,
+      "env": {
+        "EXPO_PUBLIC_APP_ENV": "production",
+        "EXPO_PUBLIC_API_URL": "https://blaj.io",
+        "EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY": "pk_live_xxxxxxxxxxxxx"
+      },
+      "android": {
+        "buildType": "app-bundle"
+      },
+      "ios": {
+        "autoIncrement": "buildNumber"
+      }
+    }
+  },
+  "submit": {
+    "production": {
+      "android": {
+        "track": "production",
+        "releaseStatus": "completed"
+      },
+      "ios": {
+        "appleId": "{{APPLE_ID}}",
+        "ascAppId": "{{ASC_APP_ID}}",
+        "appleTeamId": "{{APPLE_TEAM_ID}}"
+      }
+    }
+  }
+}

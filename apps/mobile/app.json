@@ -1,0 +1,69 @@
+{
+  "expo": {
+    "name": "blaj.io",
+    "slug": "blaj-io",
+    "scheme": "blaj-io",
+    "version": "0.0.1",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0A0A0F"
+    },
+    "platforms": ["ios", "android"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "io.blaj.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "blaj.io needs camera access to scan your car registration and ID documents.",
+        "NSPhotoLibraryUsageDescription": "blaj.io needs photo library access to upload your documents."
+      },
+      "associatedDomains": ["applinks:blaj.io"]
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0A0A0F"
+      },
+      "package": "io.blaj.app",
+      "intentFilters": [
+        {
+          "action": "VIEW",
+          "autoVerify": true,
+          "data": [
+            { "scheme": "blaj-io", "host": "*", "pathPrefix": "/renew" }
+          ],
+          "category": ["BROWSABLE", "DEFAULT"]
+        }
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-camera",
+        { "cameraPermission": "Allow blaj.io to access your camera for document scanning." }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Allow blaj.io to access your photos for document upload.",
+          "cameraPermission": "Allow blaj.io to access your camera for document scanning."
+        }
+      ],
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.io.blaj.app",
+          "enableApplePay": true,
+          "enableGooglePay": true
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}
