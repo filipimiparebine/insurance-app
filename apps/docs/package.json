@@ -1,0 +1,30 @@
+{
+  "name": "@blaj/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port 3002",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf .next dist"
+  },
+  "dependencies": {
+    "@blaj/api": "workspace:*",
+    "@scalar/api-reference-react": "^0.9.38",
+    "@scalar/nextjs-api-reference": "^0.10.16",
+    "next": "^15.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "swagger-ui-react": "^5.32.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@types/swagger-ui-react": "^5.18.0",
+    "typescript": "^5.7.0"
+  }
+}

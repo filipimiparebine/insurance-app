@@ -1,0 +1,248 @@
+@layer scalar-base, scalar-theme, scalar-config;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #f8fafc;
+  --color-bg-card: #ffffff;
+  --color-text: #1e293b;
+  --color-text-muted: #64748b;
+  --color-border: #e2e8f0;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #2563eb;
+  --color-code-bg: #1e293b;
+  --color-code-text: #e2e8f0;
+  --sidebar-width: 260px;
+}
+
+html {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.docs-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.docs-main {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  max-width: 960px;
+  padding: 3rem 3rem 4rem;
+}
+
+.docs-main h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+  color: #0f172a;
+}
+
+.docs-main h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  color: #1e293b;
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+}
+
+.docs-main h3 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.docs-main p {
+  margin-bottom: 1rem;
+  color: #334155;
+}
+
+.docs-main a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.docs-main a:hover {
+  color: var(--color-accent-hover);
+  text-decoration: underline;
+}
+
+.docs-main ul,
+.docs-main ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+.docs-main li {
+  margin-bottom: 0.35rem;
+}
+
+.docs-main code:not(pre code) {
+  background: #f1f5f9;
+  color: #1e293b;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+}
+
+.docs-main pre {
+  background: var(--color-code-bg);
+  color: var(--color-code-text);
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.docs-main pre code {
+  font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, Consolas, monospace;
+}
+
+.code-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #334155;
+  color: #cbd5e1;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.4rem 1rem;
+  border-radius: 8px 8px 0 0;
+}
+
+.code-label + pre {
+  margin-top: 0;
+  border-radius: 0 0 8px 8px;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.25rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s, transform 0.1s;
+  cursor: pointer;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  color: white;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  text-decoration: none;
+  color: white;
+}
+
+.btn-secondary {
+  background: var(--color-bg-card);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.btn-secondary:hover {
+  background: #f1f5f9;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.endpoint-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.endpoint-card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.endpoint-card:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.endpoint-card .method {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+.method-get {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+.method-post {
+  background: #dcfce7;
+  color: #15803d;
+}
+.method-put {
+  background: #fef3c7;
+  color: #a16207;
+}
+.method-delete {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.endpoint-card .path {
+  font-family: "SF Mono", "Fira Code", monospace;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1e293b;
+  margin-bottom: 0.35rem;
+  word-break: break-all;
+}
+
+.endpoint-card .desc {
+  font-size: 0.8rem;
+  color: #64748b;
+}
