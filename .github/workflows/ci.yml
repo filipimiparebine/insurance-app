@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    name: Lint & Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm run lint
+
+      - run: pnpm run typecheck
+
+  openapi:
+    name: OpenAPI Spec Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Generate OpenAPI spec
+        run: pnpm run openapi:generate
+
+      - name: Validate OpenAPI spec
+        run: |
+          SPEC="packages/api/openapi.json"
+
+          echo "==> Checking OpenAPI spec exists and is valid JSON"
+          if ! jq empty "$SPEC" 2>/dev/null; then
+            echo "ERROR: openapi.json is not valid JSON"
+            exit 1
+          fi
+
+          echo "==> Checking for broken response schemas (anyOf [{}, {\"not\": {}}])"
+          if python3 -c "
+import json, sys
+with open('$SPEC') as f:
+    spec = json.load(f)
+broken = 0
+for path, methods in spec.get('paths', {}).items():
+    for method, op in methods.items():
+        resp = op.get('responses', {}).get('200', {}).get('content', {}).get('application/json', {}).get('schema', {})
+        if resp.get('anyOf') == [{}, {'not': {}}]:
+            print(f'  BROKEN: {method.upper()} {path}')
+            broken += 1
+if broken:
+    print(f'ERROR: {broken} endpoints have broken response schemas (add .output() contract)')
+    sys.exit(1)
+else:
+    print('  OK - all endpoints have valid response schemas')
+"; then
+            echo "ERROR: OpenAPI spec quality check failed"
+            exit 1
+          fi
+
+          echo "==> Checking security schemes"
+          if python3 -c "
+import json, sys
+with open('$SPEC') as f:
+    spec = json.load(f)
+sec = spec.get('components', {}).get('securitySchemes', {})
+if not sec:
+    print('ERROR: No security schemes defined')
+    sys.exit(1)
+print(f'  OK - security schemes: {list(sec.keys())}')
+"; then
+            : # pass
+          else
+            echo "ERROR: Security scheme check failed"
+            exit 1
+          fi
+
+          echo "==> OpenAPI spec validation PASSED"
