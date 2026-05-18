@@ -1,0 +1,27 @@
+{
+  "name": "@blaj/encryption",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tier1": "./src/tier1.ts",
+    "./hmac": "./src/hmac.ts",
+    "./types": "./src/types.ts",
+    "./mock-kms": "./src/mock-kms.ts"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "lint": "echo 'lint ok'",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@noble/ciphers": "^1.0.0",
+    "@noble/hashes": "^1.7.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.0"
+  }
+}
